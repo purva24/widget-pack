@@ -13,7 +13,7 @@
 <?php 
     add_action( 'wp_head','asc_add_view');
     add_action( 'wp_enqueue_scripts', 'prefix_add_my_stylesheet' );
-  //  add_action( 'init', 'register_shortcodes');
+  
  
 
 
@@ -22,12 +22,7 @@ function prefix_add_my_stylesheet(){
         wp_enqueue_style('prefix-style');
 }
  
-/*function register_shortcodes(){
-  add_shortcode('v', 'asc_sortby_author_post_views');
-  add_shortcode('c', 'asc_sortby_author_post_comments');
 
-  
-}*/
 
 
 function asc_add_view(){
@@ -43,15 +38,7 @@ function asc_add_view(){
     }
 }
 
-/*function disp_func($atts){
-    extract (shortcode_atts(array(
-            'count'=> 2,
-            ) ,$atts,'c')
-            
-            );
 
-asc_sortby_author_post_views($count);
-}*/
 function asc_get_view_count() {
     global $post;            
     $current_views = get_post_meta($post->ID, "asc_views", true);
@@ -93,7 +80,7 @@ function asc_get_view_count() {
 
 function asc_show_views($singular = "view", $plural = "views", $before = "This post has: ") {
     global $post;
-    // asc_add_view();
+    
     echo"<div class='post-views'>";
         $current_views = get_post_meta($post->ID, "asc_views", true);  
         $views_text = $before . $current_views . " ";
@@ -106,18 +93,7 @@ function asc_show_views($singular = "view", $plural = "views", $before = "This p
         echo $views_text;
     echo"</div>";
 }
-/*function asc_sortby_post_views(){
-    $args = array(  'numberposts'  => 4,  
-                'orderby'      => 'meta_value',  
-                'meta_key'     => 'post_views_count',
-                'order'        => 'DESC',
-                'post_type'    => 'post',
-                'post_status'  => 'publish'
-            );
-$myposts = get_posts( $args );
-foreach( $myposts as $mypost ) {
-}
-}*/
+
 
 
 function asc_post_popularity_list_views($post_count) {
@@ -199,7 +175,6 @@ function asc_post_popularity_list_comments($post_count) {
                echo "This post has: "; 
                 comments_number();
             
-            //asc_show_views();
            echo "</div>";
            echo"</div>";
         endwhile;
@@ -222,17 +197,7 @@ function asc_author_popularity_list_views($post_count,$post_id=0) {
     if($asc_list->have_posts()) { echo "<ul>"; }
         while ( $asc_list->have_posts() ) : $asc_list->the_post();                                     
             echo '<li><a href="'.get_permalink($post->ID).'">'.the_title('', '', false).'</a></li>';
-            //asc_show_views();  
-           /*  if (has_post_thumbnail()){
-                the_post_thumbnail('featured-thumb');
-            }
-            else{
-                   echo '<img src="';
-                   echo catch_that_image();
-                   echo '"alt="Image Not Found"';
-                   echo the_title();
-            echo '/>';
-            }*/
+          
             
             echo "<div class='post-count'>";
                
@@ -259,23 +224,13 @@ function asc_author_popularity_list_comments($post_count,$post_id=0) {
     if($asc_list->have_posts()) { echo "<ul>"; }
         while ( $asc_list->have_posts() ) : $asc_list->the_post();                                     
             echo '<li><a href="'.get_permalink().'">'.the_title('', '', false).'</a></li>';
-            //asc_show_views();  
-           /* if (has_post_thumbnail()){
-                the_post_thumbnail('featured-thumb');
-            }
-            else{
-                   echo '<img src="';
-                   echo catch_that_image();
-                   echo '"alt="Image Not Found"';
-                   echo the_title();
-            echo '/>';
-            }*/
+           
             
             echo "<div class='post-count'>";
                echo "This post has: "; 
                 comments_number();
             
-            //asc_show_views();
+            
            echo "</div>";
           
 	endwhile;
@@ -307,7 +262,6 @@ function new_excerpt_more($more) {
 
 
 include 'popular-post-stat-widget.php';
-//include 'popular-post-widget.php';
 add_action('widgets_init',create_function('', 'return register_widget("Post_Stats_Counter");'));
-//add_action('widgets_init',create_function('', 'return register_widget("Author_Stats_Counter");'));
+
 ?>
